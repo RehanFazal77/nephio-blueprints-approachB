@@ -1,10 +1,7 @@
 # Local Path Provisioner for dynamic PV provisioning on bare-metal
+# NOTE: Namespace and StorageClass are defined in cluster-baseline package
+# This file only contains the Deployment, RBAC, and ConfigMap
 
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: local-path-storage
----
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -114,13 +111,4 @@ data:
       - name: helper-pod
         image: busybox:latest
         imagePullPolicy: IfNotPresent
----
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: local-path # kpt-set: ${storage-class-name}
-  annotations:
-    storageclass.kubernetes.io/is-default-class: "true"
-provisioner: rancher.io/local-path
-volumeBindingMode: WaitForFirstConsumer
-reclaimPolicy: Delete
+
