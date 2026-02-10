@@ -6,37 +6,46 @@ metadata:
     config.kubernetes.io/local-config: "true"
 info:
   description: |
-    APPROACH B: All-in-one network configuration package.
-    Contains NetworkIntents + NADRendererConfig + nad-fn pipeline.
-    This bypasses the broken Porch injector mechanism.
-    
-    Key difference from Approach A:
-    - NetworkIntents are EMBEDDED in this package (not separate)
-    - nad-fn processes them directly (no injection needed)
-    - NADs are generated automatically
+    Network Attachment Definitions for 5G workloads.
+    Deployed directly by ConfigSync - no nad-fn needed.
+    Namespaces are defined in cluster-baseline - NOT here.
   keywords:
-    - network-config
+    - nephio
+    - networking
     - nad
-    - network-intents
+    - multus
     - 5g
-    - approach-b
 
 pipeline:
   mutators:
-    # Step 1: Apply cluster-specific values via setters
     - image: gcr.io/kpt-fn/apply-setters:v0.2
       configMap:
-        control-plane-range: "192.168.10.0/24"
-        control-plane-gateway: "192.168.10.1"
-        control-plane-vlan: "0"
-        user-plane-range: "192.168.20.0/24"
-        user-plane-gateway: "192.168.20.1"
-        user-plane-vlan: "0"
-        interface-name: "eth0"
-        mtu: "1500"
-        cni-type: "macvlan"
-        macvlan-mode: "bridge"
-        target-namespace: "openairinterface"
-    # Step 2: Run nad-fn to generate NADs from embedded NetworkIntents
-    - image: docker.io/nephio/nad-fn:v3.0.0
-      configPath: nad-renderer-config.yaml
+        # Target namespace for NADs (must already exist in cluster-baseline)
+        target-namespace: openairinterface
+
+        # Physical interface on worker nodes
+        master-interface: eth0
+
+        # N2 Network (gNB <-> AMF signaling)
+        n2-subnet: "192.168.10.0/24"
+        n2-gateway: "192.168.10.1"
+        n2-range-start: "192.168.10.10"
+        n2-range-end: "192.168.10.250"
+
+        # N3 Network (gNB <-> UPF user plane)
+        n3-subnet: "192.168.11.0/24"
+        n3-gateway: "192.168.11.1"
+        n3-range-start: "192.168.11.10"
+        n3-range-end: "192.168.11.250"
+
+        # N4 Network (SMF <-> UPF control)
+        n4-subnet: "192.168.12.0/24"
+        n4-gateway: "192.168.12.1"
+        n4-range-start: "192.168.12.10"
+        n4-range-end: "192.168.12.250"
+
+        # N6 Network (UPF <-> Data Network)
+        n6-subnet: "192.168.13.0/24"
+        n6-gateway: "192.168.13.1"
+        n6-range-start: "192.168.13.10"
+        n6-range-end: "192.168.13.250"
