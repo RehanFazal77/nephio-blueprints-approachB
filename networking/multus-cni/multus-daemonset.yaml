@@ -63,7 +63,7 @@ spec:
         effect: NoExecute
       containers:
       - name: kube-multus
-        image: ghcr.io/k8snetworkplumbingwg/multus-cni:v4.0.2-thick # kpt-set: ${multus-image}
+        image: ghcr.io/k8snetworkplumbingwg/multus-cni:v4.0.2 # kpt-set: ${multus-image}
         command: ["/thin_entrypoint"]
         args:
         - "--multus-conf-file=auto"
@@ -89,16 +89,34 @@ spec:
           mountPath: /host/opt/cni/bin
       initContainers:
       - name: install-cni-plugins
-        image: ghcr.io/k8snetworkplumbingwg/plugins:v1.6.2 # kpt-set: ${cni-plugins-image}
-        command: ["sh", "-c"]
+        image: ghcr.io/k8snetworkplumbingwg/plugins:v1.6.2
+        command: ["/bin/sh", "-c"]
         args:
           - |
-            cp /opt/cni/bin/macvlan /host/opt/cni/bin/
-            cp /opt/cni/bin/ipvlan /host/opt/cni/bin/
-            cp /opt/cni/bin/bridge /host/opt/cni/bin/
-            chmod +x /host/opt/cni/bin/macvlan
-            chmod +x /host/opt/cni/bin/ipvlan
-            chmod +x /host/opt/cni/bin/bridge
+            echo "=== Searching for CNI plugins in image ==="
+            find / -name macvlan -type f 2>/dev/null || true
+            echo "=== Listing common CNI paths ==="
+            ls -la /opt/cni/bin/ 2>/dev/null || true
+            ls -la /plugins/ 2>/dev/null || true
+            ls -la / 2>/dev/null | grep -E "macvlan|ipvlan|bridge|tuning" || true
+            echo "=== Checking host /opt/cni/bin ==="
+            ls -la /host/opt/cni/bin/ 2>/dev/null || true
+            echo "=== Attempting copies from all known paths ==="
+            for plugin in macvlan ipvlan bridge tuning; do
+              SRC=$(find / -name "$plugin" -type f ! -path "/host/*" ! -path "/proc/*" ! -path "/sys/*" 2>/dev/null | head -1)
+              if [ -n "$SRC" ]; then
+                echo "Found $plugin at $SRC, copying..."
+                cp "$SRC" /host/opt/cni/bin/
+                chmod +x /host/opt/cni/bin/$plugin
+              elif [ -f /host/opt/cni/bin/$plugin ]; then
+                echo "$plugin already exists on host, skipping"
+              else
+                echo "WARNING: $plugin not found in image or on host"
+              fi
+            done
+            echo "=== Final state of /host/opt/cni/bin ==="
+            ls -la /host/opt/cni/bin/ | grep -E "macvlan|ipvlan|bridge|tuning" || true
+            echo "Done"
         securityContext:
           privileged: true
         volumeMounts:
