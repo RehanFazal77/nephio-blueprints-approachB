@@ -1,4 +1,6 @@
 # Resource quotas for network function namespaces
+# NOTE: LimitRange resources are already defined in cluster-baseline
+# This file only contains ResourceQuotas to avoid duplicates
 
 ---
 apiVersion: v1
@@ -26,33 +28,3 @@ spec:
     limits.cpu: "30"
     limits.memory: 60Gi
     persistentvolumeclaims: "10"
----
-apiVersion: v1
-kind: LimitRange
-metadata:
-  name: default-limits
-  namespace: openairinterface
-spec:
-  limits:
-  - default:
-      cpu: "2"
-      memory: 4Gi
-    defaultRequest:
-      cpu: "500m"
-      memory: 1Gi
-    type: Container
----
-apiVersion: v1
-kind: LimitRange
-metadata:
-  name: default-limits
-  namespace: free5gc
-spec:
-  limits:
-  - default:
-      cpu: "2"
-      memory: 4Gi
-    defaultRequest:
-      cpu: "500m"
-      memory: 1Gi
-    type: Container
