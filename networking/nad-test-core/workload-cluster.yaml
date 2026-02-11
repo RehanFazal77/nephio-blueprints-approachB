@@ -1,0 +1,13 @@
+# WorkloadCluster - tells nad-fn about the cluster's physical network
+# Pre-filled with my-core cluster details (bypasses injector for Phase 1 testing)
+apiVersion: infra.nephio.org/v1alpha1
+kind: WorkloadCluster
+metadata:
+  name: my-core
+  annotations:
+    config.kubernetes.io/local-config: "true"
+spec:
+  clusterName: my-core
+  cnis:
+    - macvlan
+  masterInterface: ens4f0

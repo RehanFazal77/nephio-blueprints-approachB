@@ -1,0 +1,18 @@
+# IPClaim for N4 interface - PRE-FILLED with status
+# In the full pipeline, interface-fn creates this and resource-backend fills status
+# For Phase 1 testing, we pre-fill it to prove nad-fn works
+apiVersion: ipam.resource.nephio.org/v1alpha1
+kind: IPClaim
+metadata:
+  name: n4-ipv4
+  annotations:
+    config.kubernetes.io/local-config: "true"
+    specializer.nephio.org/owner: workload.nephio.org/v1alpha1.NFDeployment.nad-test
+    specializer.nephio.org/namespace: default
+spec:
+  kind: network
+  networkInstance:
+    name: vpc-internal
+status:
+  prefix: "192.168.30.10/24"
+  gateway: "192.168.30.1"

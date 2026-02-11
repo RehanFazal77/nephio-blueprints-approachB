@@ -1,0 +1,18 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata:
+  name: nad-test-core
+  annotations:
+    config.kubernetes.io/local-config: "true"
+info:
+  description: |
+    Phase 1 test: Verify that nad-fn generates NADs from correct Nephio CRDs.
+    Contains pre-filled WorkloadCluster, Interface, and IPClaim resources.
+    Pipeline runs nad-fn to generate NetworkAttachmentDefinitions.
+  keywords:
+    - nad-test
+    - byoh
+    - phase1
+pipeline:
+  mutators:
+    - image: nephio/nad-fn:latest
