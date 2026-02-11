@@ -30,7 +30,7 @@ status:
     - message: update done
       reason: req.nephio.org/v1alpha1.Interface.n4
       status: "False"
-      type: k8s.cni.cncf.io/v1.NetworkAttachmentDefinition.n4
+      type: k8s.cni.cncf.io/v1.NetworkAttachmentDefinition.nad-test-n4
     - message: create resource
       reason: req.nephio.org/v1alpha1.Interface.n4
       status: "True"
@@ -43,7 +43,7 @@ status:
     - message: update done
       reason: req.nephio.org/v1alpha1.Interface.n6
       status: "False"
-      type: k8s.cni.cncf.io/v1.NetworkAttachmentDefinition.n6
+      type: k8s.cni.cncf.io/v1.NetworkAttachmentDefinition.nad-test-n6
     - message: create resource
       reason: req.nephio.org/v1alpha1.Interface.n6
       status: "True"
