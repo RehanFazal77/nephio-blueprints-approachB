@@ -16,3 +16,35 @@ info:
 pipeline:
   mutators:
     - image: nephio/nad-fn:latest
+status:
+  conditions:
+    # For each NAD, we need 3 conditions:
+    #   1. Interface condition (the "for owner" - links to the Interface CR)
+    #   2. NAD condition (the For resource - links NAD to its Interface owner via reason)
+    #   3. IPClaim condition (links IPClaim to its Interface owner via reason)
+
+    # === N4 Interface group ===
+    - message: update for condition
+      status: "False"
+      type: req.nephio.org/v1alpha1.Interface.n4
+    - message: update done
+      reason: req.nephio.org/v1alpha1.Interface.n4
+      status: "False"
+      type: k8s.cni.cncf.io/v1.NetworkAttachmentDefinition.n4
+    - message: create resource
+      reason: req.nephio.org/v1alpha1.Interface.n4
+      status: "True"
+      type: ipam.resource.nephio.org/v1alpha1.IPClaim.n4-ipv4
+
+    # === N6 Interface group ===
+    - message: update for condition
+      status: "False"
+      type: req.nephio.org/v1alpha1.Interface.n6
+    - message: update done
+      reason: req.nephio.org/v1alpha1.Interface.n6
+      status: "False"
+      type: k8s.cni.cncf.io/v1.NetworkAttachmentDefinition.n6
+    - message: create resource
+      reason: req.nephio.org/v1alpha1.Interface.n6
+      status: "True"
+      type: ipam.resource.nephio.org/v1alpha1.IPClaim.n6-ipv4

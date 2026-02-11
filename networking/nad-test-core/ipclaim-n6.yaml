@@ -5,8 +5,8 @@ metadata:
   name: n6-ipv4
   annotations:
     config.kubernetes.io/local-config: "true"
-    specializer.nephio.org/owner: workload.nephio.org/v1alpha1.NFDeployment.nad-test
-    specializer.nephio.org/namespace: default
+    specializer.nephio.org/owner: req.nephio.org/v1alpha1.Interface.n6
+    internal.kpt.dev/upstream-identifier: 'ipam.resource.nephio.org|IPClaim|default|n6-ipv4'
 spec:
   kind: network
   networkInstance:
