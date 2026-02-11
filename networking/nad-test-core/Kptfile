@@ -25,7 +25,7 @@ status:
 
     # === N4 Interface group ===
     - message: update for condition
-      status: "False"
+      status: "True"
       type: req.nephio.org/v1alpha1.Interface.n4
     - message: update done
       reason: req.nephio.org/v1alpha1.Interface.n4
@@ -38,7 +38,7 @@ status:
 
     # === N6 Interface group ===
     - message: update for condition
-      status: "False"
+      status: "True"
       type: req.nephio.org/v1alpha1.Interface.n6
     - message: update done
       reason: req.nephio.org/v1alpha1.Interface.n6
