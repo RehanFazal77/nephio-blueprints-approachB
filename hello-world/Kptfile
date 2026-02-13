@@ -1,0 +1,15 @@
+apiVersion: kpt.dev/v1
+kind: Kptfile
+metadata:
+  name: hello-world
+  annotations:
+    config.kubernetes.io/local-config: "true"
+info:
+  description: |
+    A simple hello-world application package to verify the 
+    Nephio application package flow on BYOH clusters.
+    Deploys an nginx-based hello-world app with a Service.
+  keywords:
+    - hello-world
+    - test
+    - byoh
