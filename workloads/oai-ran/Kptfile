@@ -30,3 +30,9 @@ pipeline:
     - image: docker.io/nephio/nad-fn:latest
       configMap:
         debug: "true"
+
+  validators:
+    # Validate all resources
+    - image: gcr.io/kpt-fn/kubeval:v0.3.0
+      configMap:
+        ignore_missing_schemas: "true"
