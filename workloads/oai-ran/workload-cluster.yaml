@@ -1,15 +1,12 @@
-# WorkloadCluster template — values get injected per-cluster
-# Porch automatically replaces these with actual cluster values
-# from the ClusterContext when the PackageVariant is processed
+# WorkloadCluster template — Porch injects real values per-cluster
+# The kpt.dev/config-injection annotation tells Porch to replace
+# this template with the actual WorkloadCluster CR from the mgmt cluster
 apiVersion: infra.nephio.org/v1alpha1
 kind: WorkloadCluster
 metadata:
-  name: example-cluster
-  namespace: oai-ran
+  name: workload-cluster
   annotations:
     config.kubernetes.io/local-config: "true"
+    kpt.dev/config-injection: required
 spec:
-  clusterName: example-cluster
-  cnis:
-    - macvlan
-  masterInterface: eth0
+  clusterName: example

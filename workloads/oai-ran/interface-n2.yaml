@@ -15,4 +15,3 @@ spec:
   networkInstance:
     name: vpc-control
   cniType: macvlan
-  attachmentType: vlan

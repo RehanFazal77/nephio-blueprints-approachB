@@ -15,4 +15,3 @@ spec:
   networkInstance:
     name: vpc-fronthaul
   cniType: macvlan
-  attachmentType: vlan

@@ -15,4 +15,3 @@ spec:
   networkInstance:
     name: vpc-userplane
   cniType: macvlan
-  attachmentType: vlan
