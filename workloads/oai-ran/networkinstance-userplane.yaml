@@ -1,0 +1,22 @@
+# NetworkInstance for N3 user plane
+apiVersion: infra.nephio.org/v1alpha1
+kind: NetworkInstance
+metadata:
+  name: vpc-userplane
+  namespace: oai-ran
+  annotations:
+    config.kubernetes.io/local-config: "true"
+  labels:
+    nephio.org/network: userplane
+    nephio.org/nf-type: gnb
+spec:
+  name: vpc-userplane
+  interfaces:
+    - kind: bridgedomain
+    - kind: interface
+      selector:
+        matchLabels:
+          nephio.org/interface: n3
+  pools:
+    - name: n3-ipv4-pool
+      prefixLength: 24

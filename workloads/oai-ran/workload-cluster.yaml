@@ -1,0 +1,15 @@
+# WorkloadCluster template — values get injected per-cluster
+# Porch automatically replaces these with actual cluster values
+# from the ClusterContext when the PackageVariant is processed
+apiVersion: infra.nephio.org/v1alpha1
+kind: WorkloadCluster
+metadata:
+  name: example-cluster
+  namespace: oai-ran
+  annotations:
+    config.kubernetes.io/local-config: "true"
+spec:
+  clusterName: example-cluster
+  cnis:
+    - macvlan
+  masterInterface: eth0
