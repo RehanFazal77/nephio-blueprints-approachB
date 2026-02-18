@@ -10,18 +10,6 @@ info:
     Generates IPClaims and NADs automatically via interface-fn + nad-fn pipeline.
     IPAM controller allocates IPs from IPPrefix pools.
 
-  readinessGates:
-    # WorkloadCluster injection
-    - conditionType: config.injection.WorkloadCluster.workload-cluster
-    # Interface processing
-    - conditionType: req.nephio.org.interface.n2
-    - conditionType: req.nephio.org.interface.n3
-    - conditionType: req.nephio.org.interface.ru
-    # IP allocation
-    - conditionType: ipam.nephio.org.ipclaim.n2
-    - conditionType: ipam.nephio.org.ipclaim.n3
-    - conditionType: ipam.nephio.org.ipclaim.ru
-
 pipeline:
   mutators:
   - image: docker.io/nephio/interface-fn:v2.0.0
