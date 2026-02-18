@@ -1,13 +1,17 @@
+# Interface for RU (Fronthaul - gNB to Radio Unit/USRP)
 apiVersion: req.nephio.org/v1alpha1
 kind: Interface
 metadata:
   name: ru
+  namespace: oai-ran
   annotations:
     config.kubernetes.io/local-config: "true"
-    specializer.nephio.org/owner: workload.nephio.org/v1alpha1.NFDeployment.oai-gnb
-    specializer.nephio.org/namespace: oai-ran
+    specializer.nephio.org/owner: req.nephio.org/v1alpha1.NFDeployment.gnb
+  labels:
+    nephio.org/interface: ru
+    nephio.org/nf: gnb
+    nephio.org/deployment-type: monolithic
 spec:
   networkInstance:
     name: vpc-fronthaul
   cniType: macvlan
-  attachmentType: vlan
