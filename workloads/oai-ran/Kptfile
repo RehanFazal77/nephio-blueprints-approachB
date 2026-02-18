@@ -9,6 +9,10 @@ info:
     OAI RAN network blueprint for BYOH clusters.
     Generates IPClaims and NADs automatically via interface-fn + nad-fn pipeline.
     IPAM controller allocates IPs from IPPrefix pools.
+  readinessGates:
+    - conditionType: req.nephio.org/v1alpha1.Interface.n2
+    - conditionType: req.nephio.org/v1alpha1.Interface.n3
+    - conditionType: req.nephio.org/v1alpha1.Interface.ru
 
 pipeline:
   mutators:
@@ -18,3 +22,4 @@ pipeline:
   - image: docker.io/nephio/nad-fn:latest
     configMap:
       debug: "true"
+
