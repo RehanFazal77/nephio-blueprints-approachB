@@ -6,19 +6,10 @@ metadata:
     config.kubernetes.io/local-config: "true"
 info:
   description: |
-    OAI RAN network blueprint for BYOH clusters.
-    Generates IPClaims and NADs automatically via interface-fn + nad-fn pipeline.
-    IPAM controller allocates IPs from IPPrefix pools.
-  readinessGates:
-    - conditionType: config.injection.WorkloadCluster.workload-cluster
-
+    OAI gNB monolithic blueprint for BYOH clusters.
+    3-interface design: N2 (control), N3 (userplane), RU (fronthaul).
+    Pipeline: interface-fn generates IPClaims, nad-fn generates NADs.
 pipeline:
   mutators:
-    - image: docker.io/nephio/interface-fn:latest
-    - image: docker.io/nephio/nad-fn:latest
-
-  validators:
-    - image: gcr.io/kpt-fn/kubeval:v0.3.0
-      configMap:
-        ignore_missing_schemas: "true"
-
+    - image: docker.io/nephio/interface-fn:v3.0.0
+    - image: docker.io/nephio/nad-fn:v3.0.0

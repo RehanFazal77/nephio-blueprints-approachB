@@ -1,0 +1,11 @@
+apiVersion: workload.nephio.org/v1alpha1
+kind: NFDeployment
+metadata:
+  name: oai-gnb
+  namespace: oai-ran
+spec:
+  provider: gnb.openairinterface.org
+  parametersRefs:
+    - apiVersion: workload.nephio.org/v1alpha1
+      kind: NFConfig
+      name: gnb-nf-config
