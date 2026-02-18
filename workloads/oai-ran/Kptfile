@@ -4,6 +4,7 @@ metadata:
   name: oai-ran
   annotations:
     config.kubernetes.io/local-config: "true"
+    kpt.dev/config-injection: required
 info:
   description: |
     OAI gNB monolithic blueprint for BYOH clusters.
