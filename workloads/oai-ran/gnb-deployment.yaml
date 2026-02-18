@@ -1,0 +1,21 @@
+# NFDeployment for gNB — required by interface-fn and nad-fn
+# This is a local-config resource; it won't be deployed to the cluster
+apiVersion: workload.nephio.org/v1alpha1
+kind: NFDeployment
+metadata:
+  name: gnb
+  namespace: oai-ran
+  annotations:
+    config.kubernetes.io/local-config: "true"
+spec:
+  provider: oai
+  interfaces:
+  - name: n2
+    networkInstance:
+      name: vpc-control
+  - name: n3
+    networkInstance:
+      name: vpc-userplane
+  - name: ru
+    networkInstance:
+      name: vpc-fronthaul

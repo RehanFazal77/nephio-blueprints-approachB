@@ -6,7 +6,7 @@ metadata:
   namespace: oai-ran
   annotations:
     config.kubernetes.io/local-config: "true"
-    specializer.nephio.org/owner: req.nephio.org/v1alpha1.NFDeployment.gnb
+    specializer.nephio.org/owner: workload.nephio.org/v1alpha1.NFDeployment.gnb
   labels:
     nephio.org/interface: n3
     nephio.org/nf: gnb
