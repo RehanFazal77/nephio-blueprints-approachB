@@ -9,6 +9,8 @@ info:
     OAI gNB monolithic blueprint for BYOH clusters.
     3-interface design: N2 (control), N3 (userplane), RU (fronthaul).
     Pipeline: interface-fn generates IPClaims, nad-fn generates NADs.
+  readinessGates:
+  - conditionType: config.injection.WorkloadCluster.workload-cluster
 pipeline:
   mutators:
     - image: docker.io/nephio/interface-fn:v3.0.0
