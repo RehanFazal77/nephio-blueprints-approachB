@@ -10,5 +10,5 @@ metadata:
     specializer.nephio.org/namespace: oai-ran
 spec:
   networkInstance:
-    name: n4
+    name: vpc-internal
   cniType: macvlan
