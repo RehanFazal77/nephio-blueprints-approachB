@@ -1,0 +1,25 @@
+apiVersion: infra.nephio.org/v1alpha1
+kind: Network
+metadata:
+  name: n3
+spec:
+  topology: nephio
+  routingTables:
+  - name: n3
+    prefixes:
+    - prefix: 172:6::/32
+      labels:
+        nephio.org/network-name: n3
+    - prefix: 172.6.0.0/16
+      labels:
+        nephio.org/network-name: n3
+    interfaces:
+    - kind: bridgedomain
+      bridgeDomainName: n3
+  bridgeDomains:
+  - name: n3
+    interfaces:
+    - kind: interface
+      selector:
+        matchExpressions:
+        - {key: nephio.org/cluster-name, operator: Exists}
