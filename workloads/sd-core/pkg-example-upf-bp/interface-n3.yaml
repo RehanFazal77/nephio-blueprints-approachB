@@ -1,4 +1,3 @@
-# Interface for N3 (User Plane - CUUP)
 apiVersion: req.nephio.org/v1alpha1
 kind: Interface
 metadata:
@@ -6,9 +5,10 @@ metadata:
   annotations:
     nephio.org/network-name: n3
     config.kubernetes.io/local-config: "true"
-    specializer.nephio.org/owner: workload.nephio.org/v1alpha1.NFDeployment.cuup
-    specializer.nephio.org/namespace: oai-ran
+    specializer.nephio.org/owner: workload.nephio.org/v1alpha1.NFDeployment.upf-example
+    specializer.nephio.org/namespace: example
 spec:
   networkInstance:
-    name: vpc-internet
+    name: vpc-ran
   cniType: macvlan
+  attachmentType: vlan

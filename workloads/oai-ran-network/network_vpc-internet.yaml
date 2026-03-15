@@ -1,25 +1,25 @@
 apiVersion: infra.nephio.org/v1alpha1
 kind: Network
 metadata:
-  name: vpc-internal
+  name: vpc-internet
   annotations:
     config.kubernetes.io/local-config: "true"
 spec:
   topology: nephio
   routingTables:
-  - name: vpc-internal
+  - name: vpc-internet
     prefixes:
-    - prefix: 172:1::/32
+    - prefix: 172:6::/32
       labels:
-        nephio.org/network-name: n4
-    - prefix: 172.1.0.0/16
+        nephio.org/network-name: n3
+    - prefix: 172.6.0.0/16
       labels:
-        nephio.org/network-name: n4
+        nephio.org/network-name: n3
     interfaces:
     - kind: bridgedomain
-      bridgeDomainName: vpc-internal
+      bridgeDomainName: vpc-internet
   bridgeDomains:
-  - name: vpc-internal
+  - name: vpc-internet
     interfaces:
     - kind: interface
       selector:
