@@ -14,6 +14,6 @@ info:
 
 pipeline:
   mutators:
-    - image: gcr.io/kpt-fn/apply-setters:v0.2
+    - image: ghcr.io/kptdev/krm-functions-catalog/apply-setters:v0.2
       configMap:
         whereabouts-image: ghcr.io/k8snetworkplumbingwg/whereabouts:v0.6.3

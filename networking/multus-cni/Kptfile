@@ -15,7 +15,7 @@ info:
 
 pipeline:
   mutators:
-    - image: gcr.io/kpt-fn/apply-setters:v0.2
+    - image: ghcr.io/kptdev/krm-functions-catalog/apply-setters:v0.2
       configMap:
         multus-image: ghcr.io/k8snetworkplumbingwg/multus-cni:v4.0.2
         cni-plugins-image: ghcr.io/k8snetworkplumbingwg/plugins:v1.6.2
